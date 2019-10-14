@@ -1,0 +1,51 @@
+﻿@model List<WebSiteRequestDto>
+@{
+    ViewData["Title"] = "WebSiteList";
+}
+
+<div class="container">
+
+    @if (Model.Any())
+    {
+        <h2>@Model.FirstOrDefault().WebSite.Name Web Site Request List</h2>
+        <button onclick="goBack()" class="btn btn-sm btn-default pull-right">Go Back</button>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Request Date</th>
+                <th>Status Code</th>
+                <th>Status Message</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Created</td>
+                    <td>@item.StatusCode</td>
+                    <td>@item.StatusMessage</td>
+                </tr>
+
+            }
+            </tbody>
+        </table>
+    }
+
+    else
+    {
+        <h3>No Reuqest List</h3>
+    }
+</div>
+
+
+
+@section scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+
+}
+

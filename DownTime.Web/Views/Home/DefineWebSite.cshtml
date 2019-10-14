@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model WebSiteDto
+@{
+    ViewData["Title"] = Model.Id == 0 ? "New WebSite Define" : "Update WebSite Defined";
+}
+<h2>@ViewData["Title"]</h2>
+@if (Model.Id == 0)
+{
+    Model.IsActive = true;
+}
+<div class="container">
+    <button onclick="goBack()" class="btn btn-sm btn-default pull-right">Go Back</button>
+    <form asp-action="DefineWebSite"  asp-controller="Home" autocomplete="off" method="post">
+        @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label for="email">Name :</label>
+            <input class="form-control" type="text" placeholder="Name" asp-for="Name" required />
+        </div>
+        <div class="form-group">
+            <label for="pwd">Url:</label>
+            <input class="form-control" type="url" placeholder="Url" asp-for="Url" required />
+        </div>
+        <div class="form-group">
+            <label for="pwd">Interval (minutes):</label>
+            <input class="form-control" type="number" min="5" max="999" placeholder="Request Interval" asp-for="RequestInterval" required />
+        </div>
+        <div class="form-group">
+            <label for="pwd">IsActive:</label>
+            <select asp-for="IsActive"
+                    asp-items="@(new SelectList(ViewBag.StatusList, "Value", "Title", Model.IsActive))" class="form-control" required=""></select>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+    </form>
+
+</div>
+

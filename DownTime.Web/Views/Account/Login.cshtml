@@ -1,0 +1,25 @@
+﻿@model DownTime.CommonModel.Models.LoginUserDto
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="wrapper">
+    <form asp-action="Login" asp-controller="Account" id="frmInsertUser" asp-route-returnurl="@Context.Request.Query["returnurl"]" autocomplete="off" class="form-signin" method="post">
+        @Html.AntiForgeryToken()
+        <h2 class=" center-block">Please login</h2>
+
+        <input class="form-control" type="email" placeholder="Email Adress" asp-for="Email" required />
+        <input class="form-control" type="password" placeholder="Password" asp-for="Password" required />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <br /><br />
+            <div class="alert alert-danger">
+                <button class="close" data-close="alert"></button>
+                <span>@TempData["ErrorMessage"]</span>
+            </div>
+        }
+    </form>
+</div>
